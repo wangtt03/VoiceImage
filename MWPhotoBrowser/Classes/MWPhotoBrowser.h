@@ -35,7 +35,8 @@
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index;
 - (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index;
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected;
-- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser;
+- (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser isSelectedModel:(BOOL)selected;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoBrowser:(unsigned long)numberOfPhotos;
 
 @end
 
@@ -53,12 +54,14 @@
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
 
+@property (nonatomic, strong) NSMutableArray * selectedPhotoArray;
+
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated("Use initWithDelegate: instead"))); // Depreciated
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate;
 
 // Reloads the photo browser and refetches data
-- (void)reloadData;
+-(void)reloadData;
 -(void)reloadGridView;
 -(void)scrollToBottom;
 

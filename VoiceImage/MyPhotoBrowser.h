@@ -9,11 +9,13 @@
 #import "MWPhotoBrowser.h"
 #import "EZAudio.h"
 #import "iflyMSC/iflyMSC.h"
+#import "PhotoDataProvider.h"
 
 @interface MyPhotoBrowser : MWPhotoBrowser <EZAudioPlayerDelegate,
 EZMicrophoneDelegate,
 EZRecorderDelegate,
-IFlySpeechRecognizerDelegate>{
+IFlySpeechRecognizerDelegate,
+PhotoDataProtocol>{
     NSArray* tags;
     NSUInteger last;
 }
@@ -22,7 +24,11 @@ IFlySpeechRecognizerDelegate>{
 @property (nonatomic, strong) NSString * result;
 @property (nonatomic, strong) EZAudioPlotGL *recordingAudioPlot;
 @property (nonatomic, strong) IFlySpeechRecognizer *iFlySpeechRecognizer;//不带界面的识别对象
-- (void)setNavBarAppearance:(BOOL)animated;
+
+@property (strong, nonatomic) UIBarButtonItem * refresh;
+@property (strong, nonatomic) UIBarButtonItem * trash;
+
+-(void)setNavBarAppearance:(BOOL)animated;
 -(void)startRecord;
 -(void)stopRecord;
 

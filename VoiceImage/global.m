@@ -7,10 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "global.h"
+#import "Global.h"
 
-NSString* city = @"";
-NSString* name = @"";
-NSString* street = @"";
-NSString* country = @"";
-NSString* userId = nil;
+NSString* host = @"192.168.1.100:8888";
+//NSString* host = @"vophoto-test.chinacloudapp.cn:8888";
+
+NSString* userId = @"";
+NSString* token = @"";
+NSString* latitude = @"";
+NSString* longitude = @"";
+NSString* loc = @"";
+
+NSString* searchTag = @"";
+
+sqlite3* upload_database = nil;
+
+NSObject * dbLock = nil;
+NSObject * uploadLock = nil;
+
+NSMutableArray * assetArray = nil;
+BOOL isFindAssetDone = NO;
+
+NSString * dbPath = @"";

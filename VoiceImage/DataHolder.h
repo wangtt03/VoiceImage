@@ -15,7 +15,7 @@
 
 + (DataHolder *)sharedInstance;
 
-@property (assign) NSString* userId;
+@property (copy) NSString* userId;
 
 -(void) saveData;
 -(void) loadData;

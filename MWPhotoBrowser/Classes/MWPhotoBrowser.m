@@ -11,6 +11,7 @@
 #import "MWPhotoBrowser.h"
 #import "MWPhotoBrowserPrivate.h"
 #import "SDImageCache.h"
+#import "UIView+Extension.h"
 
 #define PADDING                  10
 #define ACTION_SHEET_OLD_ACTIONS 2000
@@ -162,6 +163,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     
+    _selectedPhotoArray = [NSMutableArray array];
+    
     // Validate grid settings
     if (_startOnGrid) _enableGrid = YES;
     if (_enableGrid) {
@@ -170,7 +173,7 @@
     if (!_enableGrid) _startOnGrid = NO;
 	
 	// View
-	self.view.backgroundColor = [UIColor blackColor];
+	self.view.backgroundColor = [UIColor whiteColor];
     self.view.clipsToBounds = YES;
 	
 	// Setup paging scrolling view
@@ -227,6 +230,8 @@
     controlView = [[UIView alloc] initWithFrame:rect];
     UIImageView* back = [[UIImageView alloc] initWithImage:backImage];
     back.frame = CGRectMake(0, 0, rect.size.width, rect.size.height);
+    back.center = CGPointMake(controlView.center.x, back.center.y);
+    
     [controlView addSubview:back];
     
     size = [speakImage size];
@@ -252,7 +257,7 @@
     CGRect frame = CGRectMake(bound.size.width - 60, bound.size.height - 40, 60, 40);
     _groupButton = [[UISwitch alloc] initWithFrame:frame];
     [_groupButton addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
-    //[controlView addSubview:_groupButton];
+//    [controlView addSubview:_groupButton];
     
     [self.view addSubview:controlView];
     // Update
@@ -286,6 +291,22 @@
     _gridController.view.userInteractionEnabled = enable;
 }
 
+
+- (void)changeSwitch
+{
+    
+    self.displaySelectionButtons = !self.displaySelectionButtons;
+    _gridController.selectionMode = !_gridController.selectionMode;
+    [_gridController.collectionView reloadData];
+    for (NSNumber * indexObject in _selectedPhotoArray) {
+        NSInteger index = [indexObject integerValue];
+        [self setPhotoSelected:NO atIndex:index];
+    }
+    
+    [_selectedPhotoArray removeAllObjects];
+    [self.view setNeedsLayout];
+}
+
 - (void)changeSwitch:(id)sender{
     if([sender isOn]){
         // Execute any code when the switch is ON
@@ -316,13 +337,26 @@
     if (_gridController == nil) {
         id <MWPhoto> photo = [self photoAtIndex:_currentPageIndex];
         NSString* name = [photo caption];
-        NSData *imageData = UIImageJPEGRepresentation([photo underlyingImage], 0.7);
-        [self stopUpdateRecord:name imageData:imageData];
+//        NSData *imageData = UIImageJPEGRepresentation([photo underlyingImage], 0.7);
+        [self stopUpdateRecord:name imageData:nil];
     }
     else {
         if (_gridController.selectionMode) {
             //TODO: add multi photos to website
-            [self stopUpdateRecordList:nil imageData:nil];
+            NSMutableArray * nameArray = [NSMutableArray array];
+            
+            for (NSNumber * indexObject in self.selectedPhotoArray)
+            {
+                NSInteger index = [indexObject integerValue];
+                if ([self photoIsSelectedAtIndex:index]) {
+                    id <MWPhoto> photo = [self photoAtIndex:index];
+                    NSString* name = [photo caption];
+                    [nameArray addObject:name];
+                }
+                else
+                    continue;
+            }
+            [self stopUpdateRecordList:nameArray imageData:nil];
         }
         else {
             [self stopRecord];
@@ -345,7 +379,7 @@
     // Navigation buttons
     if ([self.navigationController.viewControllers objectAtIndex:0] == self) {
         // We're first on stack so show done button
-        _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
+        _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"··· ", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
         // Set appearance
         if ([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
             [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -356,6 +390,8 @@
             [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
         }
         self.navigationItem.rightBarButtonItem = _doneButton;
+        UIColor * naviBtnColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Dzst_color"]];
+        _doneButton.tintColor = naviBtnColor;
     } else {
         // We're not first so show back button
         UIViewController *previousViewController = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
@@ -847,11 +883,22 @@
 }
 
 - (void)setPhotoSelected:(BOOL)selected atIndex:(NSUInteger)index {
+    
     if (_displaySelectionButtons) {
+        
         if ([self.delegate respondsToSelector:@selector(photoBrowser:photoAtIndex:selectedChanged:)]) {
+            
             [self.delegate photoBrowser:self photoAtIndex:index selectedChanged:selected];
         }
     }
+}
+
+- (NSMutableArray *)selectedPhotoArray
+{
+    if (_selectedPhotoArray == nil) {
+        _selectedPhotoArray = [[NSMutableArray alloc] init];
+    }
+    return _selectedPhotoArray;
 }
 
 - (UIImage *)imageForPhoto:(id<MWPhoto>)photo {
@@ -980,7 +1027,6 @@
                 page.selectedButton = selectedButton;
                 selectedButton.selected = [self photoIsSelectedAtIndex:index];
             }
-            
 		}
 	}
 	
@@ -1199,13 +1245,17 @@
     NSUInteger numberOfPhotos = [self numberOfPhotos];
     if (_gridController) {
         if (_gridController.selectionMode) {
-            self.title = NSLocalizedString(@"Select Photos", nil);
+            self.title = NSLocalizedString(@"请选择图片", nil);
         } else {
             NSString *photosText;
             if (numberOfPhotos == 1) {
                 photosText = NSLocalizedString(@"photo", @"Used in the context: '1 photo'");
             } else {
                 photosText = NSLocalizedString(@"photos", @"Used in the context: '3 photos'");
+            }
+            photosText = @"张照片";
+            if([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotos:)]) {
+                [_delegate photoBrowser:self titleForPhotoBrowser:numberOfPhotos];
             }
             self.title = [NSString stringWithFormat:@"%lu %@", (unsigned long)numberOfPhotos, photosText];
         }
@@ -1258,6 +1308,7 @@
 #pragma mark - Interactions
 
 - (void)selectedButtonTapped:(id)sender {
+    
     UIButton *selectedButton = (UIButton *)sender;
     selectedButton.selected = !selectedButton.selected;
     NSUInteger index = NSUIntegerMax;
@@ -1585,10 +1636,12 @@
             }
         }
         // Dismiss view controller
-        if ([_delegate respondsToSelector:@selector(photoBrowserDidFinishModalPresentation:)]) {
+        if ([_delegate respondsToSelector:@selector(photoBrowserDidFinishModalPresentation:isSelectedModel:)]) {
             // Call delegate method and let them dismiss us
-            [_delegate photoBrowserDidFinishModalPresentation:self];
+            [_delegate photoBrowserDidFinishModalPresentation:self isSelectedModel:_gridController.selectionMode];
+            [self changeSwitch];
         } else  {
+            
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }

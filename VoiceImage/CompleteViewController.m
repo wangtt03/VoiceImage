@@ -10,9 +10,11 @@
 #import "TagPhotoViewController.h"
 #import "PhotoDataProvider.h"
 #import "MyPhotoBrowser.h"
-#import "APPViewController.h"
+#import "APPAppDelegate.h"
 
 @interface CompleteViewController ()
+
+@property (strong, nonatomic) YRSideViewController *sideViewController;
 
 @end
 
@@ -20,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -39,18 +42,23 @@
 */
 
 - (IBAction)takePhotoClicked:(UIButton *)sender {
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    
-    picker.delegate = self;
-    picker.allowsEditing = NO;
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    [self presentViewController:picker animated:YES completion:NULL];
+    APPAppDelegate *delegate = (APPAppDelegate*)[[UIApplication sharedApplication]delegate];
+    [delegate backtoSideViewControllerAndShowRightVc:YES];
+    [[PhotoDataProvider sharedInstance] getAllPictures:delegate.browser withSelector:@selector(imagesRetrieved:)];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)browseGallery:(UIButton *)sender {
-    APPViewController* app = [[APPViewController alloc] init];
-    [self presentViewController:app animated:YES completion:NULL];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//    
+//    APPAppDelegate *delegate = (APPAppDelegate*)[[UIApplication sharedApplication]delegate];
+//    YRSideViewController *sideViewController = [delegate sideViewController];
+//    [sideViewController hideSideViewController:YES];
+    
+    APPAppDelegate *delegate = (APPAppDelegate*)[[UIApplication sharedApplication]delegate];
+    [delegate backtoSideViewControllerAndShowRightVc:NO];
+    [[PhotoDataProvider sharedInstance] getAllPictures:delegate.browser withSelector:@selector(imagesRetrieved:)];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -59,13 +67,19 @@
     UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
     tagView.image = chosenImage;
     
-    [picker presentViewController:tagView animated:YES completion:NULL];
+    [picker pushViewController:tagView animated:YES];
     
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
-    [picker dismissViewControllerAnimated:YES completion:NULL];
-    
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    APPAppDelegate *delegate = (APPAppDelegate*)[[UIApplication sharedApplication]delegate];
+    YRSideViewController *sideViewController = [delegate sideViewController];
+    [picker pushViewController:sideViewController animated:YES];
+//    [sideViewController hideSideViewController:YES];
+//    [picker dismissViewControllerAnimated:YES completion:NULL];
 }
+
+
 @end
