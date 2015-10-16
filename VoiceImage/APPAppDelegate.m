@@ -20,10 +20,13 @@
 #import "NewFeatureController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ImageInfo.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
-@interface APPAppDelegate () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, YRSideViewDeleagate ,UIAlertViewDelegate ,StartDelegate , CLLocationManagerDelegate, PhotoDataProtocol, HttpProtocol>
+@interface APPAppDelegate () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, YRSideViewDeleagate ,UIAlertViewDelegate ,StartDelegate , CLLocationManagerDelegate, PhotoDataProtocol, HttpProtocol, TencentSessionDelegate>
 {
     dispatch_queue_t _uploadOldPhotos;
+    TencentOAuth * _tencentOAuth;
+    NSArray * _permissions;
 }
 
 @property (nonatomic, strong) CLLocationManager * locationManager;
@@ -88,6 +91,13 @@
         uploadLock = [[NSObject alloc] init];
         
         assetArray = [NSMutableArray array];
+        
+        //qq OAuth:
+        /** APP ID:1104878738
+            APP KEY:cMTBN9O9QiESTuqK
+         */
+        _tencentOAuth = [[TencentOAuth alloc] initWithAppId:@"1104878738" andDelegate:self];
+        _permissions =  [NSArray arrayWithObjects:@"get_user_info", @"get_simple_userinfo", @"add_t", nil];
         
         //加载相册图片 dataRetrieved:中初始化browser
         [[PhotoDataProvider sharedInstance] getAllPictures:self withSelector:@selector(dataRetrieved:)];
@@ -199,8 +209,34 @@
 
 -(void)startApp
 {
-    [self showBrowser];
+    [_tencentOAuth authorize:_permissions inSafari:YES];
+//    [self showBrowser];
 }
+
+#pragma mark - TencentOAuth delegate
+
+- (void)tencentDidLogin
+{
+//    _labelTitle.text = @"登录完成";
+    
+    if (_tencentOAuth.accessToken && 0 != [_tencentOAuth.accessToken length])
+    {
+        //  记录登录用户的OpenID、Token以及过期时间
+//        _labelAccessToken.text = _tencentOAuth.accessToken;
+        [self showBrowser];
+        NSLog(@"%@",_tencentOAuth.accessToken);
+    }
+    else
+    {
+//        _labelAccessToken.text = @"登录不成功 没有获取accesstoken";
+    }
+}
+
+-(void)tencentDidNotNetWork
+{
+    NSLog(@"无网络连接，请设置网络");
+} 
+
 
 #pragma mark - Alert View click delegate
 
@@ -413,9 +449,11 @@
     });
 }
 
--(void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
-
+//qq
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [TencentOAuth HandleOpenURL:url];
 }
+
+
 
 @end

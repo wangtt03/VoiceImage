@@ -34,6 +34,8 @@
 		39809E791B9D6D6E00014A0C /* DropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809E781B9D6D6E00014A0C /* DropdownMenu.m */; };
 		3991139E1B9566A000D6F672 /* CameraOverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3991139C1B9566A000D6F672 /* CameraOverlayController.m */; };
 		3991139F1B9566A000D6F672 /* CameraOverlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3991139D1B9566A000D6F672 /* CameraOverlayController.xib */; };
+		39A1F80E1BD11AD200CFC460 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A1F80D1BD11AD200CFC460 /* TencentOpenAPI.framework */; };
+		39A1F8101BD11B1200CFC460 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A1F80F1BD11B1200CFC460 /* libiconv.tbd */; };
 		39B38ED41B9024310090A809 /* PickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 39B38ED21B9024310090A809 /* PickerViewController.xib */; };
 		39B38F7F1B954EAB0090A809 /* Dzst_function_bg-pic.png in Resources */ = {isa = PBXBuildFile; fileRef = 39B38F631B954EAB0090A809 /* Dzst_function_bg-pic.png */; };
 		39B38F801B954EAB0090A809 /* Dzst_function_foot-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 39B38F641B954EAB0090A809 /* Dzst_function_foot-bg@2x.png */; };
@@ -208,6 +210,8 @@
 		3991139B1B9566A000D6F672 /* CameraOverlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayController.h; sourceTree = "<group>"; };
 		3991139C1B9566A000D6F672 /* CameraOverlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayController.m; sourceTree = "<group>"; };
 		3991139D1B9566A000D6F672 /* CameraOverlayController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlayController.xib; sourceTree = "<group>"; };
+		39A1F80D1BD11AD200CFC460 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = Extern/TencentOpenAPI.framework; sourceTree = "<group>"; };
+		39A1F80F1BD11B1200CFC460 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		39B38ED21B9024310090A809 /* PickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerViewController.xib; sourceTree = "<group>"; };
 		39B38F631B954EAB0090A809 /* Dzst_function_bg-pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dzst_function_bg-pic.png"; sourceTree = "<group>"; };
 		39B38F641B954EAB0090A809 /* Dzst_function_foot-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dzst_function_foot-bg@2x.png"; sourceTree = "<group>"; };
@@ -238,7 +242,6 @@
 		39B38F7D1B954EAB0090A809 /* photo_bg1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_bg1@2x.png"; sourceTree = "<group>"; };
 		39B38F7E1B954EAB0090A809 /* photo_bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_bg2@2x.png"; sourceTree = "<group>"; };
 		39B38F9B1B954FCC0090A809 /* Dzst_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dzst_loading.png; sourceTree = "<group>"; };
-		39BDA2131B84153E00CBA988 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		39BDA2181B84223F00CBA988 /* APPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APPAppDelegate.m; sourceTree = "<group>"; };
 		39BDA2521B84719A00CBA988 /* DataBaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseHelper.h; sourceTree = "<group>"; };
 		39BDA2531B84719A00CBA988 /* DataBaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseHelper.m; sourceTree = "<group>"; };
@@ -264,7 +267,6 @@
 		39EBA4091B8D95FC009D392F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		39EBA40B1B8D9618009D392F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		39EBA40D1B8D961E009D392F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		39EBA40F1B8D9633009D392F /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		39EBA4111B8D963F009D392F /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapSearchKit.framework; path = Extern/AMapSearchKit.framework; sourceTree = "<group>"; };
 		39EBA4121B8D963F009D392F /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MAMapKit.framework; path = Extern/MAMapKit.framework; sourceTree = "<group>"; };
 		39EBA45A1B8DF3B3009D392F /* YRSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRSideViewController.h; sourceTree = "<group>"; };
@@ -367,7 +369,6 @@
 		EBFBBA4F1B6F08F10065902F /* IATConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IATConfig.m; sourceTree = "<group>"; };
 		EBFBBA511B6F0B100065902F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		EBFBBA531B6F0B5F0065902F /* libSunFlower.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSunFlower.a; path = lib/sunflower/libSunFlower.a; sourceTree = "<group>"; };
-		EBFBBA551B6F0B9E0065902F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		EBFBBA571B6F0BB50065902F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		EBFBBA591B6F0BD00065902F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EBFBBA5B1B6F19A60065902F /* ISRDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISRDataHelper.h; sourceTree = "<group>"; };
@@ -379,6 +380,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBFBBA521B6F0B100065902F /* CoreTelephony.framework in Frameworks */,
+				EB52891C1B46301300E35384 /* CoreGraphics.framework in Frameworks */,
+				EBFBBA5A1B6F0BD00065902F /* SystemConfiguration.framework in Frameworks */,
+				39A1F8101BD11B1200CFC460 /* libiconv.tbd in Frameworks */,
+				39EBA40A1B8D95FC009D392F /* Security.framework in Frameworks */,
+				39A1F80E1BD11AD200CFC460 /* TencentOpenAPI.framework in Frameworks */,
 				39F53C131BCDF1230033732A /* StoreKit.framework in Frameworks */,
 				39F53C001BC0C7E20033732A /* libsqlite3.dylib in Frameworks */,
 				39F53BFE1BC0C7CF0033732A /* libstdc++.6.0.9.dylib in Frameworks */,
@@ -387,9 +394,6 @@
 				39EBA4141B8D963F009D392F /* MAMapKit.framework in Frameworks */,
 				39EBA40E1B8D961E009D392F /* UIKit.framework in Frameworks */,
 				39EBA40C1B8D9618009D392F /* Foundation.framework in Frameworks */,
-				39EBA40A1B8D95FC009D392F /* Security.framework in Frameworks */,
-				EBFBBA521B6F0B100065902F /* CoreTelephony.framework in Frameworks */,
-				EBFBBA5A1B6F0BD00065902F /* SystemConfiguration.framework in Frameworks */,
 				EBFBBA581B6F0BB50065902F /* AddressBook.framework in Frameworks */,
 				EBFBBA541B6F0B5F0065902F /* libSunFlower.a in Frameworks */,
 				EBFBBA4D1B6F077A0065902F /* iflyMSC.framework in Frameworks */,
@@ -398,7 +402,6 @@
 				EB5289271B46345D00E35384 /* libMWPhotoBrowser.a in Frameworks */,
 				EB5289201B46302800E35384 /* MapKit.framework in Frameworks */,
 				EB52891E1B46301C00E35384 /* MessageUI.framework in Frameworks */,
-				EB52891C1B46301300E35384 /* CoreGraphics.framework in Frameworks */,
 				EB52891A1B462FFE00E35384 /* ImageIO.framework in Frameworks */,
 				EB5289181B462FF000E35384 /* QuartzCore.framework in Frameworks */,
 				EB2398251B453EA1004182BC /* CoreLocation.framework in Frameworks */,
@@ -670,20 +673,19 @@
 		EB85AA9D1B5CE04900F4F4F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				39A1F80F1BD11B1200CFC460 /* libiconv.tbd */,
+				39A1F80D1BD11AD200CFC460 /* TencentOpenAPI.framework */,
 				39F53C121BCDF1230033732A /* StoreKit.framework */,
 				39F53BFF1BC0C7E20033732A /* libsqlite3.dylib */,
 				39F53BFD1BC0C7CF0033732A /* libstdc++.6.0.9.dylib */,
 				39F53BFB1BC0C7B80033732A /* libz.1.dylib */,
 				39EBA4111B8D963F009D392F /* AMapSearchKit.framework */,
 				39EBA4121B8D963F009D392F /* MAMapKit.framework */,
-				39EBA40F1B8D9633009D392F /* libstdc++.6.0.9.dylib */,
 				39EBA40D1B8D961E009D392F /* UIKit.framework */,
 				39EBA40B1B8D9618009D392F /* Foundation.framework */,
 				39EBA4091B8D95FC009D392F /* Security.framework */,
-				39BDA2131B84153E00CBA988 /* libsqlite3.dylib */,
 				EBFBBA591B6F0BD00065902F /* SystemConfiguration.framework */,
 				EBFBBA571B6F0BB50065902F /* AddressBook.framework */,
-				EBFBBA551B6F0B9E0065902F /* libz.dylib */,
 				EBFBBA531B6F0B5F0065902F /* libSunFlower.a */,
 				EBFBBA511B6F0B100065902F /* CoreTelephony.framework */,
 				EBFBBA4C1B6F077A0065902F /* iflyMSC.framework */,
@@ -1126,7 +1128,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/lib/sunflower",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-fobjc-arc",
+				);
 				PRODUCT_NAME = "大嘴说图";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1158,7 +1163,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/lib/sunflower",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-fobjc-arc",
+				);
 				PRODUCT_NAME = "大嘴说图";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
